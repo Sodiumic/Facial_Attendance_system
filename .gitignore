@@ -18,3 +18,5 @@ trainer/*.json
 
 # macOS
 .DS_Store
+thumbs.db
+
