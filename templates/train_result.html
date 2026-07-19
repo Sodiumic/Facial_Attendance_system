@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="train-container">
+
+    <h1>🤖 AI Model Training</h1>
+
+    {% if success %}
+
+        <div class="progress-box">
+
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+
+            <br>
+
+            <p>✅ Dataset Loaded</p>
+            <p>✅ Face Images Processed</p>
+            <p>✅ Features Extracted</p>
+            <p>✅ LBPH AI Model Trained</p>
+            <p>✅ Labels Saved Successfully</p>
+
+            <h2 class="success">
+                {{ message }}
+            </h2>
+
+        </div>
+
+    {% else %}
+
+        <h2 class="error">
+            {{ message }}
+        </h2>
+
+    {% endif %}
+
+    <br><br>
+
+    <a href="/students" class="btn">
+        ← Back to Students
+    </a>
+
+    <a href="/attendance" class="btn">
+        Take Attendance →
+    </a>
+
+</div>
+
+{% endblock %}

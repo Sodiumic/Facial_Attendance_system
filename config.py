@@ -1,6 +1,6 @@
 import os
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 DATABASE = os.path.join(BASE_DIR, "database.db")
 
@@ -13,14 +13,16 @@ MODEL_FILE = os.path.join(TRAINER_DIR, "face_model.yml")
 LABELS_FILE = os.path.join(TRAINER_DIR, "labels.json")
 
 CAMERA_INDEX = 0
-FACE_WIDTH = 200
-FACE_HEIGHT = 200
+
 MAX_IMAGES = 50
 
-CONFIDENCE_THRESHOLD = 70
+CONFIDENCE_THRESHOLD = 45
 
-SENDER_EMAIL = ""
-SENDER_PASSWORD = ""
+HAARCASCADE = os.path.join(
+    os.path.dirname(__import__("cv2").__file__),
+    "data",
+    "haarcascade_frontalface_default.xml"
+)
 
 os.makedirs(DATASET_DIR, exist_ok=True)
 os.makedirs(TRAINER_DIR, exist_ok=True)

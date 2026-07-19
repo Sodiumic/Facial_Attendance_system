@@ -2,8 +2,60 @@
 
 {% block content %}
 
-<h2>Dashboard</h2>
+<h2 class="dashboard-title">
+    AI Face Recognition Attendance System
+</h2>
 
-<p>Welcome to the AI Face Recognition Attendance Management System.</p>
+<p class="dashboard-subtitle">
+    Welcome! Select an action below.
+</p>
+
+<div class="dashboard-grid">
+
+    <a href="/students" class="card">
+        <div class="icon">👨‍🎓</div>
+        <h3>Students</h3>
+        <p>View all registered students.</p>
+    </a>
+
+    <a href="/register" class="card">
+        <div class="icon">➕</div>
+        <h3>Register Student</h3>
+        <p>Register and capture facial images.</p>
+    </a>
+
+    <a href="/checkin" class="card">
+        <div class="icon">✅</div>
+        <h3>Check In</h3>
+        <p>Record student arrival.</p>
+    </a>
+
+    <a href="/checkout" class="card">
+        <div class="icon">🚪</div>
+        <h3>Check Out</h3>
+        <p>Record student departure.</p>
+    </a>
+
+    <a href="/reports" class="card">
+        <div class="icon">📊</div>
+        <h3>Reports</h3>
+        <p>View attendance history.</p>
+    </a>
+
+    <div class="card ai-card">
+
+        <div class="icon">🤖</div>
+
+        <h3>AI Status</h3>
+
+        <p>Face Recognition Model Ready</p>
+
+        <span class="status-badge">
+            ✔ READY
+        </span>
+
+    </div>
+
+</div>
 
 {% endblock %}

@@ -1,72 +1,56 @@
 import os
-import pandas as pd
+import shutil
 
-from config import STUDENTS_FILE
+from modules.database import get_connection
+from config import DATASET_DIR
 
 
-class StudentManager:
+def add_student(student_id, full_name, email):
+    conn = get_connection()
+    cursor = conn.cursor()
 
-    def __init__(self):
-        self.create_student_file()
+    cursor.execute("""
+        INSERT INTO students(student_id, full_name, email)
+        VALUES (?, ?, ?)
+    """, (student_id, full_name, email))
 
-    def create_student_file(self):
-        """
-        Creates students.csv if it does not exist.
-        """
+    conn.commit()
+    conn.close()
 
-        if not os.path.exists(STUDENTS_FILE):
 
-            df = pd.DataFrame(columns=[
-                "Student ID",
-                "First Name",
-                "Last Name",
-                "Email",
-                "Department",
-                "Level",
-                "Date Registered"
-            ])
+def get_all_students():
+    conn = get_connection()
 
-            df.to_csv(STUDENTS_FILE, index=False)
+    students = conn.execute("""
+        SELECT *
+        FROM students
+        ORDER BY full_name
+    """).fetchall()
 
-    def register_student(
-        self,
-        student_id,
-        first_name,
-        last_name,
-        email,
-        department,
-        level,
-        date_registered
-    ):
+    conn.close()
 
-        df = pd.read_csv(STUDENTS_FILE)
+    return students
 
-        # Check duplicate ID
-        if student_id in df["Student ID"].astype(str).values:
-            return False, "Student ID already exists."
 
-        # Check duplicate Email
-        if email.lower() in df["Email"].astype(str).str.lower().values:
-            return False, "Email already exists."
+def delete_student(student_id):
 
-        new_student = pd.DataFrame([{
-            "Student ID": student_id,
-            "First Name": first_name,
-            "Last Name": last_name,
-            "Email": email,
-            "Department": department,
-            "Level": level,
-            "Date Registered": date_registered
-        }])
+    conn = get_connection()
+    cursor = conn.cursor()
 
-        df = pd.concat([df, new_student], ignore_index=True)
+    cursor.execute(
+        "DELETE FROM attendance WHERE student_id=?",
+        (student_id,)
+    )
 
-        df.to_csv(STUDENTS_FILE, index=False)
+    cursor.execute(
+        "DELETE FROM students WHERE student_id=?",
+        (student_id,)
+    )
 
-        return True, "Student registered successfully."
+    conn.commit()
+    conn.close()
 
-    def view_students(self):
+    student_folder = os.path.join(DATASET_DIR, student_id)
 
-        df = pd.read_csv(STUDENTS_FILE)
-
-        return df
+    if os.path.exists(student_folder):
+        shutil.rmtree(student_folder)
