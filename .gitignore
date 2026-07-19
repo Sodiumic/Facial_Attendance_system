@@ -1,22 +1,11 @@
-
-# Python
+.venv/
 __pycache__/
 *.pyc
+database.db
 
-# Virtual Environment
-.venv/
+dataset/
+trainer/
+attendance/
 
-# VS Code
-.vscode/
-
-# Database (optional during development)
-# database.db
-
-# OpenCV model
-trainer/*.yml
-trainer/*.json
-
-# macOS
+Thumbs.db
 .DS_Store
-thumbs.db
-
